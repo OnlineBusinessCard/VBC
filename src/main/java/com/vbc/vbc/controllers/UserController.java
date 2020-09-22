@@ -2,6 +2,7 @@ package com.vbc.vbc.controllers;
 
 import com.vbc.vbc.models.User;
 import com.vbc.vbc.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,14 @@ public class UserController {
         user.setPassword(hash);
         userDao.save(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("/dashboard")
+    public String userDashboard(Model model){
+        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getOne(sessionUser.getId());
+        model.addAttribute("user", user);
+        return "users/dashboard";
     }
 
 }
