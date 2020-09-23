@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -42,6 +43,14 @@ public class UserController {
         User user = userDao.getOne(sessionUser.getId());
         model.addAttribute("user", user);
         return "users/dashboard";
+    }
+
+
+    @GetMapping("/profile/{id}")
+    public String userProfile(@PathVariable long id, Model model){
+        User user = userDao.getOne(id);
+        model.addAttribute("user", user);
+        return "users/profile";
     }
 
 }
