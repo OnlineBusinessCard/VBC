@@ -11,14 +11,36 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, length = 50, unique = false)
+    private String firstName;
+
+    @Column(nullable = false, length = 50, unique = false)
+    private String lastName;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false, length = 50)
     private String title;
+
+    @Column(nullable = false, length = 50)
+    private String company;
 
     @Column(nullable = false, length = 50)
     private String website;
 
     @Column
     private String phone;
+
+    @Column(nullable = false, length = 50)
+    private String city;
+
+    @Column(nullable = false, length = 50)
+    private String state;
+
+    @Column(nullable = false, length = 50)
+    private String country;
+
 
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "userCard")
     private User user;
