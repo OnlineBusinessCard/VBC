@@ -26,17 +26,20 @@ public class User {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @OneToOne
+    private Card card;
 
     public User() {
     }
 
-    public User(long id, String username, String email, String firstName, String lastName, String password ) {
+    public User(long id, String username, String email, String firstName, String lastName, String password, Card card) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.card = card;
     }
 
     public User(User copy) {
@@ -46,6 +49,7 @@ public class User {
         this.password = copy.password;
         this.firstName = copy.firstName;
         this.lastName = copy.lastName;
+        this.card = copy.card;
     }
 
 
@@ -95,5 +99,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 }

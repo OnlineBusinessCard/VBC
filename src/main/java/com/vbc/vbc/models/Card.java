@@ -42,7 +42,7 @@ public class Card {
     private String country;
 
 
-    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "userCard")
+    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "card")
     private User user;
 
     public Card() {
