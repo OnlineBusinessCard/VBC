@@ -5,11 +5,22 @@
     <title>Navbar</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+
 </head>
 <body>
-<nav th:fragment="navbar" class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<style>
+    a, ul, li {
+        font-family: 'Peddana', serif;
+    }
+</style>
+
+<nav th:fragment="navbar" class="navbar sticky-top navbar-expand-lg " style="background-color: #000000; text-decoration: #ffffff">
     <div class="collapse navbar-collapse">
+        <a class="navbar-brand nav-link" th:href="@{/}">VBC</a>
+
         <ul class="nav justify-content-center navbar-nav navbar-inner ml-auto">
+
             <li class="nav-item "><a class="nav-link" th:href="@{/}">Home</a></li>
             <th:block sec:authorize="!isAuthenticated()">
                 <li class="nav-item ">
