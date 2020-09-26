@@ -26,6 +26,7 @@ public class CardController {
         this.imageDao = imageDao;
     }
 
+    //VIEW CARD
     @GetMapping("/card/{id}")
     public String myCard(@PathVariable long id, Model model){
         Card card = cardsDao.getOne(id);
@@ -33,6 +34,7 @@ public class CardController {
         return "card/view";
     }
 
+    //CREATE CARD
     @GetMapping("/card/create")
     public String showCardForm(Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -40,6 +42,7 @@ public class CardController {
         return "card/create";
     }
 
+    //CREATE CARD
     @PostMapping("/card/create")
     public String createCard(@ModelAttribute Card card, @RequestParam String imageUpload){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -48,12 +51,14 @@ public class CardController {
         return "redirect:/card/{id}";
     }
 
+    //EDIT CARD
     @GetMapping("/card/{id}/edit")
     public String showEditForm(@PathVariable long id, Model model){
         model.addAttribute("card", cardsDao.getOne(id));
         return "card/edit";
     }
 
+    //EDIT CARD
     @PostMapping("/card/{id}/edit")
     public String editCard(@PathVariable long id, @ModelAttribute Card card) {
         User user = usersDao.getOne(1L);
@@ -62,11 +67,20 @@ public class CardController {
         return "redirect:/card/view";
     }
 
+    //DELETE CARD
     @GetMapping("/card/{id}/delete")
     public String deletePage(@PathVariable long id, Model model){
         Card pulledCard = cardsDao.getOne(id);
         model.addAttribute("card", pulledCard);
         return "card/delete";
+    }
+
+    // DELETE CARD
+    @PostMapping("/card/{id}/delete")
+    public String deleteCard(@ModelAttribute Card card){
+        Card deleteCard = cardsDao.getOne(card.getId());
+        cardsDao.delete(deleteCard);
+        return "redirect:/dashboard";
     }
 
 }
