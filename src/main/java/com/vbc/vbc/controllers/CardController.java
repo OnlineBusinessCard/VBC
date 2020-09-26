@@ -46,4 +46,10 @@ public class CardController {
         return "redirect:/card/{id}";
     }
 
+    @GetMapping("/card/{id}/edit")
+    public String showEditForm(@PathVariable long id, Model model){
+        model.addAttribute("card", cardsDao.getOne(id));
+        return "card/edit";
+    }
+
 }
