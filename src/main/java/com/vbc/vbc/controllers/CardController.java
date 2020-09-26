@@ -52,4 +52,12 @@ public class CardController {
         return "card/edit";
     }
 
+    @PostMapping("/card/{id}/edit")
+    public String editCard(@PathVariable long id, @ModelAttribute Card card) {
+        User user = usersDao.getOne(1L);
+        card.setUser(user);
+        cardsDao.save(card);
+        return "redirect:/card/view";
+    }
+
 }
