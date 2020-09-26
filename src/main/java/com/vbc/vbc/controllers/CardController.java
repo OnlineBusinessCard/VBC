@@ -8,8 +8,7 @@ import com.vbc.vbc.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CardController {
@@ -37,6 +36,14 @@ public class CardController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("Card", new Card());
         return "card/create";
+    }
+
+    @PostMapping("/card/create")
+    public String createCard(@ModelAttribute Card card, @RequestParam String imageUpload){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        user.setCard(user.getCard());
+        cardsDao.save(card);
+        return "redirect:/card/{id}";
     }
 
 }
