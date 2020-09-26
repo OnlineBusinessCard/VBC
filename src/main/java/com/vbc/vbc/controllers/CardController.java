@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
+
 @Controller
 public class CardController {
 
@@ -58,6 +60,13 @@ public class CardController {
         card.setUser(user);
         cardsDao.save(card);
         return "redirect:/card/view";
+    }
+
+    @GetMapping("/card/{id}/delete")
+    public String deletePage(@PathVariable long id, Model model){
+        Card pulledCard = cardsDao.getOne(id);
+        model.addAttribute("card", pulledCard);
+        return "card/delete";
     }
 
 }
