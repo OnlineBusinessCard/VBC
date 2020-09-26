@@ -1,9 +1,11 @@
 package com.vbc.vbc.controllers;
 
 import com.vbc.vbc.models.Card;
+import com.vbc.vbc.models.User;
 import com.vbc.vbc.repositories.CardRepository;
 import com.vbc.vbc.repositories.ImageRepository;
 import com.vbc.vbc.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +32,11 @@ public class CardController {
         return "card/view";
     }
 
+    @GetMapping("/card/create")
+    public String showCardForm(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("Card", new Card());
+        return "card/create";
+    }
 
 }
