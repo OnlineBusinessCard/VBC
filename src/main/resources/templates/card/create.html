@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="container">
+    <h2 class="text-center">Create Business Card</h2>
+
+    <form th:action="@{'/card/create'}" th:method="post" th:object="${Card}">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="userId" th:field="*{firstName}">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="userId" th:field="*{lastName}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="hidden" class="form-control" id="email" name="userId" th:field="*{email}">
+        </div>
+        <div class="form-group">
+            <label for="phone"></label>
+            <input type="hidden" class="form-control" id="phone" name="userId" th:field="*{phone}">
+        </div>
+        <div class="form-group">
+            <label for="website">Website</label>
+            <input type="hidden" class="form-control" id="website" name="userId" th:field="*{website}">
+        </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="hidden" class="form-control" id="title" name="userId" th:field="*{title}">
+        </div>
+        <div class="form-group">
+            <label for="company">Company</label>
+            <input type="hidden" class="form-control" id="company" name="userId" th:field="*{company}">
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="hidden" class="form-control" id="city" name="userId" th:field="*{city}">
+        </div>
+        <div class="form-group">
+            <label for="state">State</label>
+            <input type="hidden" class="form-control" id="state" name="userId" th:field="*{state}">
+        </div>
+        <div class="form-group">
+            <label for="country">Country</label>
+            <input type="hidden" class="form-control" id="country" name="userId" th:field="*{country}">
+        </div>
+        <button class="bg-dark text-white" type="submit">Create Card</button>
+    </form>
+</div>
+</body>
+</html>
