@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="container">
+    <h2 class="text-center">Viewing Business Card</h2>
+    <hr>
+
+    <div class="card">
+        <div class="card-header">My Card</div>
+        <div class="card-body">
+            <p th:text="${card.firstName}"></p>
+            <p th:text="${card.lastName}"></p>
+            <p th:text="${card.phone}"></p>
+            <p th:text="${card.email}"></p>
+            <p th:text="${card.title}"></p>
+            <p th:text="${card.company}"></p>
+            <p th:text="${card.website}"></p>
+            <p th:text="${card.city}"></p>
+            <p th:text="${card.state}"></p>
+            <p th:text="${card.country}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
