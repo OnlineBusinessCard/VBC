@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+
+<div class="container">
+    <h2 class="text-center">Delete My Card</h2>
+    <hr>
+    <div class="card">
+        <div class="card-header">My Card</div>
+        <div class="card-body">
+            <p class="card-text" th:text="${card.firstName}"></p>
+            <p class="card-text" th:text="${card.lastName}"></p>
+            <p class="card-text" th:text="${card.phone}"></p>
+            <p class="card-text" th:text="${card.email}"></p>
+            <p class="card-text" th:text="${card.title}"></p>
+            <p class="card-text" th:text="${card.company}"></p>
+            <p class="card-text" th:text="${card.website}"></p>
+            <p class="card-text" th:text="${card.city}"></p>
+            <p class="card-text" th:text="${card.state}"></p>
+            <p class="card-text" th:text="${card.country}"></p>
+            <form th:action="@{'/card/' + ${card.getId()} + '/delete'}" th:method="post">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
