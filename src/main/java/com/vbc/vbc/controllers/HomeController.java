@@ -11,4 +11,9 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/faq")
+    public String faqPage(){
+        return "faq";
+    }
+
 }
