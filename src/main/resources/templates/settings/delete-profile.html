@@ -8,5 +8,23 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 <br>
 <h2 class="text-center">Delete Profile</h2>
+
+<div class="container">
+    <h2 class="text-center">Would You like to delete your profile?</h2>
+    <hr>
+    <div class="card">
+        <div class="card-header">My Profile</div>
+        <div class="card-body">
+            <h2 class="card-title" th:text="${user.username}"></h2>
+            <p class="card-text" th:text="${user.firstName}"></p>
+            <p class="card-text" th:text="${user.lastName}"></p>
+            <p class="card-text" th:text="${user.email}"></p>
+            <form th:action="@{'/profile/' + ${user.getId()} + '/delete'}" th:method="post">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
