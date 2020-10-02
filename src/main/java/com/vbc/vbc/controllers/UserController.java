@@ -87,5 +87,11 @@ public class UserController {
         return "settings/delete-profile";
     }
 
+    @PostMapping("/profile/{id}/delete")
+    public String deleteUser(@ModelAttribute User user){
+        User deleteUser = userDao.getOne(user.getId());
+        userDao.delete(deleteUser);
+        return "redirect:/";
+    }
 
 }
