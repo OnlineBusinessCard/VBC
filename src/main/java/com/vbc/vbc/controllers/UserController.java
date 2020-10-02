@@ -80,4 +80,12 @@ public class UserController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/profile/{id}/delete")
+    public String delete(@PathVariable long id, Model model){
+        User user = userDao.getOne(id);
+        model.addAttribute("user", user);
+        return "settings/delete-profile";
+    }
+
+
 }
