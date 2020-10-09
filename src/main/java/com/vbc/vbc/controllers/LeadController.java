@@ -1,12 +1,14 @@
 package com.vbc.vbc.controllers;
 
 import com.vbc.vbc.models.Lead;
+import com.vbc.vbc.models.User;
 import com.vbc.vbc.repositories.LeadRepository;
 import com.vbc.vbc.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -33,6 +35,14 @@ public class LeadController {
         Lead pulledLead = leadDao.getOne(id);
         model.addAttribute("leads", pulledLead);
         return "leads/show";
+    }
+
+    @GetMapping("/leads/create/{id}")
+    public String showCreateLeadForm(@PathVariable long id, Model model){
+        User user = userDao.findById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("lead", new Lead());
+        return "leads/create";
     }
 
 }
