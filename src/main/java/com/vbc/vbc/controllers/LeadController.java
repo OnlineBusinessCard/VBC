@@ -6,6 +6,7 @@ import com.vbc.vbc.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -25,6 +26,13 @@ public class LeadController {
         List<Lead> myLead = leadDao.findAll();
         model.addAttribute("lead", myLead);
         return "leads/index";
+    }
+
+    @GetMapping("/leads/{id}")
+    public String showLead(@PathVariable long id, Model model){
+        Lead pulledLead = leadDao.getOne(id);
+        model.addAttribute("leads", pulledLead);
+        return "leads/show";
     }
 
 }
