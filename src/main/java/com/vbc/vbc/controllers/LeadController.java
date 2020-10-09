@@ -6,9 +6,7 @@ import com.vbc.vbc.repositories.LeadRepository;
 import com.vbc.vbc.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,6 +41,15 @@ public class LeadController {
         model.addAttribute("user", user);
         model.addAttribute("lead", new Lead());
         return "leads/create";
+    }
+
+    @PostMapping("/leads/create")
+    public String createLead(@ModelAttribute Lead lead, @RequestParam(name="userId") long userId){
+        User user = userDao.findById(userId);
+        lead.setUser(user);
+        lead.setCreateDateTime(lead.getCreateDateTime());
+        leadDao.save(lead);
+        return "redirect:/";
     }
 
 }
