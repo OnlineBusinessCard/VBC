@@ -52,4 +52,11 @@ public class LeadController {
         return "redirect:/";
     }
 
+    @GetMapping("/leads/{id}/delete")
+    public String deletePage(@PathVariable long id, Model model){
+        Lead pulledLead = leadDao.getOne(id);
+        model.addAttribute("lead", pulledLead);
+        return "leads/delete";
+    }
+
 }
