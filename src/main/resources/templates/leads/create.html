@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+
+<div class="container">
+    <h2 class="text-center">Submit Contact Information</h2>
+
+    <form th:action="@{'/lead/create'}" th:method="post" th:object="${lead}">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="userId" th:field="*{firstName}">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="userId" th:field="*{lastName}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="userId" th:field="*{email}">
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="text" class="form-control" id="phone" name="userId" th:field="*{phone}">
+        </div>
+        <div class="form-group">
+            <label for="note">Note</label>
+            <input type="text" class="form-control" id="note" name="userId" th:field="*{note}">
+        </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="date" name="userId" th:field="*{createDateTime}">
+        </div>
+        <button class="bg-dark text-white" type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
