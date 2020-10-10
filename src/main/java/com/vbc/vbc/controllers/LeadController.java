@@ -59,4 +59,11 @@ public class LeadController {
         return "leads/delete";
     }
 
+    @PostMapping("/leads/{id}/delete")
+    public String deleteLead(@ModelAttribute Lead lead){
+        Lead deleteLead = leadDao.getOne(lead.getId());
+        leadDao.delete(deleteLead);
+        return "redirect:/dashboard";
+    }
+
 }
