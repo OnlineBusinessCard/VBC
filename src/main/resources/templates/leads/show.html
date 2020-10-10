@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="container">
+    <h2 class="text-center">Viewing Lead Information</h2>
+    <hr>
+
+    <div class="card">
+        <div class="card-header">View Lead</div>
+        <div class="card-body">
+            <p class="card-text" th:text="${leads.firstName}"></p>
+            <p class="card-text" th:text="${leads.lastName}"></p>
+            <p class="card-text" th:text="${leads.phone}"></p>
+            <p class="card-text" th:text="${leads.email}"></p>
+            <p class="card-text" th:text="${leads.note}"></p>
+            <p class="card-text" th:text="${leads.createDateTime}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
