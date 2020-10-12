@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="container">
+    <h2 class="text-center">Delete Lead</h2>
+    <hr>
+    <div class="card">
+        <div class="card-header">Lead</div>
+        <div class="card-body">
+            <p class="card-text" th:text="${lead.firstName}"></p>
+            <p class="card-text" th:text="${lead.lastName}"></p>
+            <p class="card-text" th:text="${lead.phone}"></p>
+            <p class="card-text" th:text="${lead.email}"></p>
+            <p class="card-text" th:text="${lead.note}"></p>
+            <p class="card-text" th:text="${lead.createDateTime}"></p>
+            <form th:action="@{'/leads/' + ${lead.getId()} + '/delete'}" th:method="post">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
