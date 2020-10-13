@@ -7,7 +7,9 @@ import com.vbc.vbc.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -45,6 +47,15 @@ public class ReviewsController {
         model.addAttribute("review", new Review());
 //        model.addAttribute("rating", new Rating());
         return "reviews/create";
+    }
+
+    @PostMapping("reviews/create")
+    public String createReview(@ModelAttribute Review review, Model model, long id){
+        User user = usersDao.findById(id);
+        review.setAuthor(user);
+        model.addAttribute("rating", review);
+        reviewsDao.save(review);
+        return "redirect:/";
     }
 
 }
