@@ -58,4 +58,10 @@ public class ReviewsController {
         return "redirect:/";
     }
 
+    @GetMapping("/reviews/{id}/edit")
+    public String showEditForm(@PathVariable long id, Model model){
+        model.addAttribute("review", reviewsDao.getOne(id));
+        return "reviews/edit";
+    }
+
 }
