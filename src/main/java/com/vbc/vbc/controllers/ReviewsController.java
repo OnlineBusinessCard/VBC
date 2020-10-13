@@ -72,4 +72,11 @@ public class ReviewsController {
         return "redirect:/reviews";
     }
 
+    @GetMapping("/reviews/{id}/delete")
+    public String deletePage(@PathVariable long id, Model model){
+        Review pulledReview = reviewsDao.getOne(id);
+        model.addAttribute("review", pulledReview);
+        return "reviews/delete";
+    }
+
 }
