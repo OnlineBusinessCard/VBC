@@ -64,4 +64,12 @@ public class ReviewsController {
         return "reviews/edit";
     }
 
+    @PostMapping("/reviews/{id}/edit")
+    public String editReview(@PathVariable long id, @ModelAttribute Review review){
+        User user = usersDao.getOne(1L);
+        review.setAuthor(user);
+        reviewsDao.save(review);
+        return "redirect:/reviews";
+    }
+
 }
