@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="container">
+    <h2 class="text-center">Edit Review</h2>
+    <hr>
+    <form th:action="@{/reviews/{id}/edit(id=${review.id})}" th:method="post" th:object="${review}">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" th:field="*{title}" th:value="*{title}">
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <input type="text" class="form-control" id="content" name="content" th:field="*{content}" th:value="*{content}">
+        </div>
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <input type="hidden" class="form-control" id="rating" name="rating" th:field="*{rating}" th:value="*{rating}">
+        </div>
+        <button class="btn btn-primary" type="submit">Edit Review</button>
+    </form>
+</div>
+</body>
+</html>
