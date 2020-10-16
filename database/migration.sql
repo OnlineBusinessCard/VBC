@@ -7,6 +7,8 @@ SHOW TABLES;
 DESCRIBE users;
 DESCRIBE cards;
 DESCRIBE images;
+DESCRIBE leads;
+DESCRIBE reviews;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -43,3 +45,26 @@ CREATE TABLE IF NOT EXISTS images (
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
+
+CREATE TABLE IF NOT EXISTS leads (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    create_date_time datetime,
+    user_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    title varchar(50) NOT NULL,
+    content longtext NOT NULL ,
+    rating decimal(2,1) NOT NULL,
+    user_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
