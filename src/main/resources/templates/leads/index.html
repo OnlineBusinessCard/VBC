@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="container p-5 border-left">
+
+    <h2 class="text-center">Viewing All Leads</h2>
+    <hr>
+
+    <div th:each="leads : ${lead}">
+        <div class="card">
+            <div class="card-header">
+                Lead
+            </div>
+            <div class="card-body">
+                <p class="card-text" th:text="${leads.firstName}"></p>
+                <p class="card-text" th:text="${leads.lastName}"></p>
+                <p class="card-text" th:text="${leads.phone}"></p>
+                <p class="card-text" th:text="${leads.email}"></p>
+                <p class="card-text" th:text="${leads.note}"></p>
+                <a class="btn btn-primary" th:href="@{'/leads/' + ${leads.id}}">View Lead</a>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+</body>
+</html>
