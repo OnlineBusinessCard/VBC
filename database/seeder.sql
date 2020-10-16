@@ -35,3 +35,27 @@ INSERT INTO images (id, filestack_url, service_id)
 VALUES (4, 'https://cdn.filestackcontent.com/9u7NzKMPT3670xrhdJXD', 4);
 INSERT INTO images (id, filestack_url, service_id)
 VALUES (5, 'https://cdn.filestackcontent.com/9u7NzKMPT3670xrhdJXD', 5);
+
+# leads
+INSERT INTO leads (id, create_date_time, first_name, last_name, email, phone, user_id)
+VALUES (1, '2020-09-02 14:22:21', 'Jane', 'Doe', 'jane@email.com', '2101231234', 1);
+INSERT INTO leads (id, create_date_time, first_name, last_name, email, phone, user_id)
+VALUES (2, '2020-09-02 14:22:21', 'John', 'Smith', 'john@email.com', '2101231234', 2);
+INSERT INTO leads (id, create_date_time, first_name, last_name, email, phone, user_id)
+VALUES (3, '2020-09-02 14:22:21', 'Andrew', 'Jones', 'andrew@email.com', '2101231234', 3);
+INSERT INTO leads (id, create_date_time, first_name, last_name, email, phone, user_id)
+VALUES (4, '2020-09-02 14:22:21', 'Cody', 'Adams', 'cody@email.com', '2101231234', 4);
+INSERT INTO leads (id, create_date_time, first_name, last_name, email, phone, user_id)
+VALUES (5, '2020-09-02 14:22:21', 'Jeff', 'Harris', 'jeff@email.com', '2101231234', 5);
+
+# reviews
+INSERT INTO reviews (id, title, content, rating, user_id)
+VALUES (1, 'Easy to connect to set up appointment', 'Was able to fit me in for an appointment the next day', 4.0, 1);
+INSERT INTO reviews (id, title, content, rating, user_id)
+VALUES (2, 'Best barber in town!', 'Quick service and good communication', 5.0, 2);
+INSERT INTO reviews (id, title, content, rating, user_id)
+VALUES (3, 'Great Communication.', 'Good Service', 5.0, 3);
+INSERT INTO reviews (id, title, content, rating, user_id)
+VALUES (4, 'Very professional', 'Enjoyed the quick trim.', 4.0, 4);
+INSERT INTO reviews (id, title, content, rating, user_id)
+VALUES (5, 'Okay experience', 'Ended up starting appointment ten minutes late', 2.0, 5);
