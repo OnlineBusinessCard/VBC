@@ -41,6 +41,8 @@ public class Card {
     @Column(nullable = false, length = 50)
     private String country;
 
+    @OneToOne
+    private CardOwner cardOwner;
 
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "card")
     private User user;
@@ -48,7 +50,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(long id, String title, String website, String phone, User user, String firstName, String lastName, String email, String company, String city, String state, String country){
+    public Card(long id, String title, String website, String phone, User user, String firstName, String lastName, String email, String company, String city, String state, String country, CardOwner cardOwner){
         this.id = id;
         this.title = title;
         this.website = website;
@@ -61,6 +63,7 @@ public class Card {
         this.city = city;
         this.state = state;
         this.country = country;
+        this.cardOwner = cardOwner;
     }
 
 
@@ -158,5 +161,13 @@ public class Card {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public CardOwner getCardOwner() {
+        return cardOwner;
+    }
+
+    public void setCardOwner(CardOwner cardOwner) {
+        this.cardOwner = cardOwner;
     }
 }
