@@ -1,6 +1,7 @@
 package com.vbc.vbc.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "card_owner")
@@ -19,14 +20,22 @@ public class CardOwner {
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "cardOwner")
     private User user;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cardOwner", fetch = FetchType.LAZY)
+    private List<Review> reviews;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cardOwner", fetch = FetchType.LAZY)
+    private List<Lead> leads;
+
     public CardOwner() {
     }
 
-    public CardOwner(long id, String bio, String phone, User user) {
+    public CardOwner(long id, String bio, String phone, User user, List<Review> reviews, List<Lead> leads) {
         this.id = id;
         this.bio = bio;
         this.phone = phone;
         this.user = user;
+        this.reviews = reviews;
+        this.leads = leads;
     }
 
     public long getId() {
@@ -59,5 +68,21 @@ public class CardOwner {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Lead> getLeads() {
+        return leads;
+    }
+
+    public void setLeads(List<Lead> leads) {
+        this.leads = leads;
     }
 }
