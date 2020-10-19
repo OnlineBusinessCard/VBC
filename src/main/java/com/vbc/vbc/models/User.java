@@ -29,14 +29,17 @@ public class User {
     @Column(nullable = false, columnDefinition = "TINYINT")
     private boolean isOwner;
 
-    @OneToOne
-    private Card card;
+//    @OneToOne
+//    private Card card;
 
     @OneToOne
     private CardOwner cardOwner;
 
-    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author")
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author_review")
     private List<Review> reviews;
+
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author_lead")
+    private List<Lead> leads;
 
     public User() {
     }
@@ -48,7 +51,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.card = card;
+//        this.card = card;
     }
 
     public User(User copy) {
@@ -58,7 +61,20 @@ public class User {
         this.password = copy.password;
         this.firstName = copy.firstName;
         this.lastName = copy.lastName;
-        this.card = copy.card;
+//        this.card = copy.card;
+    }
+
+    public User(long id, String username, String firstName, String lastName, String email, String password, boolean isOwner, CardOwner cardOwner, List<Review> reviews, List<Lead> leads) {
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.isOwner = isOwner;
+        this.cardOwner = cardOwner;
+        this.reviews = reviews;
+        this.leads = leads;
     }
 
 
@@ -110,19 +126,13 @@ public class User {
         this.password = password;
     }
 
-    public Card getCard() {
-        return card;
-    }
-
-    public void setCard(Card card) {
-        this.card = card;
-    }
-
-    public User(boolean isOwner, CardOwner cardOwner, List<Review> reviews) {
-        this.isOwner = isOwner;
-        this.cardOwner = cardOwner;
-        this.reviews = reviews;
-    }
+//    public Card getCard() {
+//        return card;
+//    }
+//
+//    public void setCard(Card card) {
+//        this.card = card;
+//    }
 
     public boolean isOwner() {
         return isOwner;
@@ -146,5 +156,13 @@ public class User {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<Lead> getLeads() {
+        return leads;
+    }
+
+    public void setLeads(List<Lead> leads) {
+        this.leads = leads;
     }
 }
