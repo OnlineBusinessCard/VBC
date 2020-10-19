@@ -23,16 +23,20 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User author;
 
+    @ManyToOne
+    @JoinColumn(name = "card_owner")
+    private CardOwner cardOwner;
 
     public Review() {
     }
 
-    public Review(long id, String title, String content, double rating, User author) {
+    public Review(long id, String title, String content, double rating, User author, CardOwner cardOwner) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.rating = rating;
         this.author = author;
+        this.cardOwner = cardOwner;
     }
 
     public long getId() {
@@ -73,5 +77,13 @@ public class Review {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public CardOwner getCardOwner() {
+        return cardOwner;
+    }
+
+    public void setCardOwner(CardOwner cardOwner) {
+        this.cardOwner = cardOwner;
     }
 }
