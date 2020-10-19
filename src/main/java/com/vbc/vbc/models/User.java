@@ -26,8 +26,17 @@ public class User {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(nullable = false, columnDefinition = "TINYINT")
+    private boolean isOwner;
+
     @OneToOne
     private Card card;
+
+    @OneToOne
+    private CardOwner cardOwner;
+
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author")
+    private List<Review> reviews;
 
     public User() {
     }
@@ -107,5 +116,35 @@ public class User {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public User(boolean isOwner, CardOwner cardOwner, List<Review> reviews) {
+        this.isOwner = isOwner;
+        this.cardOwner = cardOwner;
+        this.reviews = reviews;
+    }
+
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(boolean owner) {
+        isOwner = owner;
+    }
+
+    public CardOwner getCardOwner() {
+        return cardOwner;
+    }
+
+    public void setCardOwner(CardOwner cardOwner) {
+        this.cardOwner = cardOwner;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
