@@ -1,16 +1,19 @@
 package com.vbc.vbc.controllers;
 
 import com.vbc.vbc.models.Card;
+import com.vbc.vbc.models.CardOwner;
 import com.vbc.vbc.models.User;
 import com.vbc.vbc.repositories.CardOwnerRepository;
 import com.vbc.vbc.repositories.CardRepository;
 import com.vbc.vbc.repositories.LeadRepository;
 import com.vbc.vbc.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CardOwnerController {
@@ -27,12 +30,31 @@ public class CardOwnerController {
         this.leadsDao = leadsDao;
     }
 
-    @GetMapping("cardOwner/profile")
+    @GetMapping("card-owner/profile")
     public String cardOwnerProfile(@ModelAttribute Card card, Model model){
         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = usersDao.getOne(sessionUser.getId());
         model.addAttribute("user", user);
         return "cardOwner/profile";
+    }
+
+    @GetMapping("/card-owner/bio")
+    public String cardOwnerBio(Model model){
+        User owner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", owner);
+        model.addAttribute("cardOwner", new CardOwner());
+        return "cardOwner/bio";
+    }
+
+    @PostMapping("/card-owner/bio")
+    public String createBio(@ModelAttribute CardOwner cardOwner){
+        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User owner = usersDao.getOne(sessionUser.getId());
+        cardOwnersDao.getOne(sessionUser.getId());
+        cardOwnersDao.save(cardOwner);
+        owner.setCardOwner(cardOwner);
+        usersDao.save(owner);
+        return "redirect:/dashboard";
     }
 
 }
