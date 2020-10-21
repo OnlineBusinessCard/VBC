@@ -35,10 +35,10 @@ public class User {
     @OneToOne
     private CardOwner cardOwner;
 
-    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author_review")
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author")
     private List<Review> reviews;
 
-    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author_lead")
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "user")
     private List<Lead> leads;
 
     public User() {
