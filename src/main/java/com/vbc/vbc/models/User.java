@@ -61,6 +61,8 @@ public class User {
         this.password = copy.password;
         this.firstName = copy.firstName;
         this.lastName = copy.lastName;
+        this.cardOwner = copy.cardOwner;
+        this.isOwner = copy.isOwner;
 //        this.card = copy.card;
     }
 

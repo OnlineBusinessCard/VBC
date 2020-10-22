@@ -44,18 +44,15 @@ public class Card {
     @OneToOne
     private CardOwner cardOwner;
 
-    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "card")
-    private User user;
 
     public Card() {
     }
 
-    public Card(long id, String title, String website, String phone, User user, String firstName, String lastName, String email, String company, String city, String state, String country, CardOwner cardOwner){
+    public Card(long id, String title, String website, String phone, String firstName, String lastName, String email, String company, String city, String state, String country, CardOwner cardOwner){
         this.id = id;
         this.title = title;
         this.website = website;
         this.phone = phone;
-        this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -155,13 +152,6 @@ public class Card {
         this.phone = phone;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public CardOwner getCardOwner() {
         return cardOwner;
