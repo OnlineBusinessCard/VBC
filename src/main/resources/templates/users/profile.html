@@ -8,5 +8,26 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 <br>
 <h2 class="text-center">View for Business Card Profile</h2>
+
+<div class="container">
+    <div class="row py-5 px-4">
+        <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+            <div class="bg-white shadow rounded overflow-hidden" style="border: #8D2827 solid 1px">
+                <div class="px-4 pt-0 pb-4 bg-dark" th:object="${user}">
+                    <div class="media align-items-end profile-header">
+                        <br>
+                        <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-submit btn-sm btn-block">Edit
+                            profile</a></div>
+                        <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-1"><span th:text="*{firstName}"></span> <span th:text="*{lastName}"></span></h4>
+                            <p class="small mb-4" style="font-size: larger" th:text="*{username}"><i class="fas fa-at mr-2"></i></p>
+                            <p class="small mb-4" style="font-size: larger;" th:text="*{email}"><i class="far fa-envelope mr-2"></i>></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
