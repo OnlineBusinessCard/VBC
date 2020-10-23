@@ -41,7 +41,7 @@ public class Card {
     @Column(nullable = false, length = 50)
     private String country;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "cardOwner")
     private CardOwner cardOwner;
 

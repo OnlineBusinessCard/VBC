@@ -20,8 +20,8 @@ public class CardOwner {
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "cardOwner")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cardOwner", fetch = FetchType.EAGER)
-    private Card card;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cardOwner", fetch = FetchType.EAGER)
+    private List<Card> cards;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cardOwner", fetch = FetchType.LAZY)
     private List<Review> reviews;
@@ -32,14 +32,17 @@ public class CardOwner {
     public CardOwner() {
     }
 
-    public CardOwner(long id, String bio, String phone, User user, List<Review> reviews, List<Lead> leads, Card card) {
+    public CardOwner(long id, String bio, String phone, User user, List<Review> reviews, List<Lead> leads) {
         this.id = id;
         this.bio = bio;
         this.phone = phone;
         this.user = user;
         this.reviews = reviews;
         this.leads = leads;
-        this.card = card;
+    }
+
+    public CardOwner(List<Card> cards) {
+        this.cards = cards;
     }
 
     public long getId() {
@@ -90,11 +93,11 @@ public class CardOwner {
         this.leads = leads;
     }
 
-    public Card getCard() {
-        return card;
+    public List<Card> getCards() {
+        return cards;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 }

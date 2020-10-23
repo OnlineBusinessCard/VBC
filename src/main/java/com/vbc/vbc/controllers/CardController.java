@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class CardController {
 
@@ -28,6 +30,14 @@ public class CardController {
         this.imageDao = imageDao;
     }
 
+    //VIEW ALL CARDS
+    @GetMapping("/cards")
+    public String cardIndexPage(Model model){
+        List<Card> cards = cardsDao.findAll();
+        model.addAttribute("cards", cards);
+        return "cards/index";
+    }
+
     //VIEW CARD
     @GetMapping("/card/{id}")
     public String myCard(@PathVariable long id, Model model){
@@ -39,17 +49,22 @@ public class CardController {
     //CREATE CARD
     @GetMapping("/card/create")
     public String showCardForm(Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = usersDao.getOne(sessionUser.getId());
+        model.addAttribute("user", user);
         model.addAttribute("Card", new Card());
         return "card/create";
     }
 
     //CREATE CARD
     @PostMapping("/card/create")
-    public String createCard(@ModelAttribute Card card, @RequestParam String imageUpload){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String createCard(@ModelAttribute Card card){
+        User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = usersDao.getOne(sessionUser.getId());
+        CardOwner cardOwner = user.getCardOwner();
         card.setCardOwner(user.getCardOwner());
         cardsDao.save(card);
+        cardOwnerDao.save(cardOwner);
         return "redirect:/card/{id}";
     }
 
