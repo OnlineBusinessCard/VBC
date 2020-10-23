@@ -19,7 +19,7 @@
             <p class="card-text" th:text="${user.firstName}"></p>
             <p class="card-text" th:text="${user.lastName}"></p>
             <p class="card-text" th:text="${user.email}"></p>
-            <form th:action="@{'/profile/' + ${user.getId()} + '/delete'}" th:method="post">
+            <form th:action="@{'/profile' + '/delete/' + ${user.getId()}}" th:method="post">
                 <button class="btn btn-danger">Delete</button>
             </form>
         </div>
