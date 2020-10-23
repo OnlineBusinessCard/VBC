@@ -7,7 +7,39 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 <br>
-<h2 class="text-center">Edit Profile</h2>
+<div class="container">
 
+    <h2 class="text-center">Edit Profile</h2>
+
+    <form th:action="@{/profile/edit/{id}(id=${user.id})}" th:method="POST" th:object="${user}" class="p-5"
+          style="margin-top: -5%;">
+        <div class="form-group">
+            <label for="editFirstName">First Name</label>
+            <input type="text" class="form-control border border-danger" id="editFirstName" name="editFirstName"
+                   th:field="*{firstName}" th:value="${user.firstName}">
+        </div>
+        <div class="form-group">
+            <label for="editLastName">Last Name</label>
+            <input type="text" class="form-control border border-danger" id="editLastName" name="editLastName"
+                   th:field="*{lastName}" th:value="${user.lastName}">
+        </div>
+        <div class="form-group">
+            <label for="editUsername">Username</label>
+            <input type="text" class="form-control border border-danger" id="editUsername" name="editUsername"
+                   th:field="*{username}" th:value="${user.username}">
+        </div>
+        <div class="form-group">
+            <label for="editEmail">Email</label>
+            <input type="text" class="form-control border border-danger" id="editEmail" name="editEmail"
+                   th:field="*{email}" th:value="${user.email}">
+        </div>
+
+<!--        <input type="hidden" id="imageUpload" name="imageUpload" value="null">-->
+<!--        <img src="" class="hidden mb-3" id="imagePreview" style="height: 200px"><br>-->
+
+        <button class="btn btn-submit" type="submit">Save</button>
+        <a class="btn btn-submit float-right" style="text-decoration: none; color:black;" th:href="@{/profile}">back</a>
+    </form>
+</div>
 </body>
 </html>
