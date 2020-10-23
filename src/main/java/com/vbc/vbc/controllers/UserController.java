@@ -44,8 +44,8 @@ public class UserController {
     public String userDashboard(Model model){
         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getOne(sessionUser.getId());
-        List<Image> myImage = imagesDao.findAll();
-        model.addAttribute("images", myImage);
+//        List<Image> myImage = imagesDao.findAll();
+//        model.addAttribute("images", myImage);
         model.addAttribute("user", user);
         return "users/dashboard";
     }
@@ -66,28 +66,28 @@ public class UserController {
     }
 
     @PostMapping("/profile/edit/{id}")
-    public String update(@PathVariable long id, @ModelAttribute User user, @RequestParam String imageUpload){
+    public String update(@PathVariable long id, @ModelAttribute User user){
         User currentUser = userDao.findById(id);
-        Image img = new Image();
-        img.setFilestackUrl(imageUpload);
-        img.setUser(user);
+//        Image img = new Image();
+//        img.setFilestackUrl(imageUpload);
+//        img.setUser(user);
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
         currentUser.setUsername(user.getUsername());
         currentUser.setEmail(user.getEmail());
-        imagesDao.save(img);
+//        imagesDao.save(img);
         userDao.save(currentUser);
         return "redirect:/dashboard";
     }
 
-    @GetMapping("/profile/{id}/delete")
+    @GetMapping("/profile/delete/{id}")
     public String delete(@PathVariable long id, Model model){
         User user = userDao.getOne(id);
         model.addAttribute("user", user);
         return "settings/delete-profile";
     }
 
-    @PostMapping("/profile/{id}/delete")
+    @PostMapping("/profile/delete/{id}")
     public String deleteUser(@ModelAttribute User user){
         User deleteUser = userDao.getOne(user.getId());
         userDao.delete(deleteUser);
