@@ -17,8 +17,8 @@ public class Card {
     @Column(nullable = false, length = 50, unique = false)
     private String lastName;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String email;
+//    @Column(length = 100, nullable = false, unique = true)
+//    private String email;
 
     @Column(nullable = false, length = 50)
     private String title;
@@ -42,20 +42,21 @@ public class Card {
     private String country;
 
     @OneToOne
+    @JoinColumn(name = "cardOwner")
     private CardOwner cardOwner;
-
 
     public Card() {
     }
 
-    public Card(long id, String title, String website, String phone, String firstName, String lastName, String email, String company, String city, String state, String country, CardOwner cardOwner){
+
+    public Card(long id, String title, String website, String phone, String firstName, String lastName, String company, String city, String state, String country, CardOwner cardOwner){
         this.id = id;
         this.title = title;
         this.website = website;
         this.phone = phone;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+//        this.email = email;
         this.company = company;
         this.city = city;
         this.state = state;
@@ -88,13 +89,13 @@ public class Card {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getCompany() {
         return company;
@@ -160,4 +161,6 @@ public class Card {
     public void setCardOwner(CardOwner cardOwner) {
         this.cardOwner = cardOwner;
     }
+
+
 }

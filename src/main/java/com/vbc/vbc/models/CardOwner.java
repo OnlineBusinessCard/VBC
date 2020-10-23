@@ -20,7 +20,7 @@ public class CardOwner {
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "cardOwner")
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cardOwner", fetch = FetchType.EAGER)
     private Card card;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cardOwner", fetch = FetchType.LAZY)
