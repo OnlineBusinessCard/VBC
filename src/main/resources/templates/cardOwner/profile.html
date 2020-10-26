@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<div class="container">
+    <div class="d-flex d-inline">
+        <h1 class="text-center" th:text="${'Welcome ' + user.firstName}">!</h1>
+    </div>
+
+    <div class="px-4 pt-0 pb-4 bg-dark" th:object="${user.firstName}">
+        <div class="media align-items-end profile-header">
+
+            <!--            <div class="profile mr-3" th:each="image :${user.getImages()}"><img th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" alt="..." width="196" class="rounded mb-2 img-thumbnail"></div>-->
+
+            <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-light btn-sm btn-block btn-submit">Edit
+                profile</a></div>
+
+
+            <div class="media-body mb-5 text-white">
+                <h4 class="mt-4">Bio</h4>
+                <p class="mt-0 mb-4" th:text="${user.cardOwner.bio}"></p>
+                <h4>Phone Number</h4>
+                <p class="small mb-4 " style="font-size: larger;" th:text="${user.cardOwner.phone}"><i
+                        class="fas fa-at mr-2"></i></p>
+                <form th:action="@{/barber/edit-barber-details}" th:method="get">
+                    <input type="hidden" th:name="editBarberDetailsButton" th:value="${user.cardOwner.id}">
+                    <button class="btn btn-submit">Edit Bio<i class="fas fa-user-cog"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <h1 class="card-title" style="color: #FEFED3">New Leads</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="color: #FEFED3">Created</th>
+            <th style="color: #FEFED3">Name</th>
+            <th style="color: #FEFED3">Contact Information</th>
+            <th style="color: #FEFED3">Details</th>
+            <th style="color: #FEFED3">View Lead</th>
+        </tr>
+        </thead>
+        <tbody th:each="leads : ${user.getCardOwner().getLeads()}">
+        <tr style="color: #FEFED3">
+            <td><span class="date" th:text="${leads.createDateTime}"></span></td>
+            <td th:text="${leads.user.firstName} +' ' + ${leads.user.lastName}"></td>
+            <td th:text="${leads.phone}"></td>
+            <td th:text="${leads.note}"></td>
+            <td><a class="btn btn-submit " style="color: #FEFED3" th:href="@{'/leads/' + ${leads.id}}">View Lead</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <hr>
+</div>
+</body>
+</html>
