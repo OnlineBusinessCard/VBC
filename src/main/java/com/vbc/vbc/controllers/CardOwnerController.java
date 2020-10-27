@@ -1,19 +1,13 @@
 package com.vbc.vbc.controllers;
 
-import com.vbc.vbc.models.Card;
-import com.vbc.vbc.models.CardOwner;
-import com.vbc.vbc.models.Lead;
-import com.vbc.vbc.models.User;
-import com.vbc.vbc.repositories.CardOwnerRepository;
-import com.vbc.vbc.repositories.CardRepository;
-import com.vbc.vbc.repositories.LeadRepository;
-import com.vbc.vbc.repositories.UserRepository;
+import com.vbc.vbc.models.*;
+import com.vbc.vbc.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -25,12 +19,14 @@ public class CardOwnerController {
     private final CardOwnerRepository cardOwnersDao;
     private final CardRepository cardsDao;
     private final LeadRepository leadsDao;
+    private final ReviewRepository reviewsDao;
 
-    public CardOwnerController(UserRepository usersDao, CardOwnerRepository cardOwnersDao, CardRepository cardsDao, LeadRepository leadsDao) {
+    public CardOwnerController(UserRepository usersDao, CardOwnerRepository cardOwnersDao, CardRepository cardsDao, LeadRepository leadsDao, ReviewRepository reviewsDao) {
         this.usersDao = usersDao;
         this.cardOwnersDao = cardOwnersDao;
         this.cardsDao = cardsDao;
         this.leadsDao = leadsDao;
+        this.reviewsDao = reviewsDao;
     }
 
     @GetMapping("card-owner/profile")
@@ -67,6 +63,15 @@ public class CardOwnerController {
         List<User> allOwners = usersDao.findAllCardOwners();
         model.addAttribute("owners", allOwners);
         return "cardOwner/owners";
+    }
+
+    @GetMapping("/cardOwner/profile/{id}")
+    public String ownerProfile(@PathVariable long id, Model model){
+        User owner = usersDao.getOne(id);
+        List<Review> reviews = reviewsDao.findAllReviewsByCardOwner(owner.getCardOwner().getId());
+        model.addAttribute("reviews", reviews);
+        model.addAttribute("owner", owner);
+        return "cardOwner/show";
     }
 
 }
