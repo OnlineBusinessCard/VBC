@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<header th:replace="partials :: header"></header>
+<h1 class="text-center">Displaying All Card Owners</h1>
+<br>
+<br>
+<div class="container">
+    <div class="card-group row row-cols-1 row-cols-md-3 pt-5">
+        <div class="card m-3 " th:each="owner : ${owners}" th:if="${owner.cardOwner != null}">
+<!--            <div class="profile mr-3" th:each="image :${owner.getImages()}"><img th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" alt="..." style="height: 200px" class="rounded m-4 img-thumbnail">-->
+
+                <!--                <div class="profile mr-3"><img th:src="@{${'/img/profile_placeholder.png'}}" alt="gentleman_placeholder" width="196" class="rounded mb-2 img-thumbnail">-->
+                <div class="card-body">
+                    <a th:href="@{/owners/profile/{id}(id=${owner.id})}"><h5 class="card-title"
+                                                                                                     th:text="${owner.firstName}"></h5></a>
+                    <p class="card-text" th:text="${owner.cardOwner.bio}"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+</body>
+</html>
