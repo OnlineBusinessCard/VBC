@@ -2,6 +2,7 @@ package com.vbc.vbc.controllers;
 
 import com.vbc.vbc.models.Card;
 import com.vbc.vbc.models.CardOwner;
+import com.vbc.vbc.models.Lead;
 import com.vbc.vbc.models.User;
 import com.vbc.vbc.repositories.CardOwnerRepository;
 import com.vbc.vbc.repositories.CardRepository;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class CardOwnerController {
@@ -34,7 +37,9 @@ public class CardOwnerController {
     public String cardOwnerProfile(@ModelAttribute Card card, Model model){
         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = usersDao.getOne(sessionUser.getId());
+        List<Lead> leads = leadsDao.findAll();
         model.addAttribute("user", user);
+        model.addAttribute("leads", leads);
         return "cardOwner/profile";
     }
 
@@ -55,6 +60,13 @@ public class CardOwnerController {
         owner.setCardOwner(cardOwner);
         usersDao.save(owner);
         return "redirect:/dashboard";
+    }
+
+    @GetMapping("/owners")
+    public String showOwners(Model model){
+        List<User> allOwners = usersDao.findAllCardOwners();
+        model.addAttribute("owners", allOwners);
+        return "cardOwner/owners";
     }
 
 }
