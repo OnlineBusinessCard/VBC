@@ -79,8 +79,18 @@ public class CardController {
     @PostMapping("/card/{id}/edit")
     public String editCard(@PathVariable long id, @ModelAttribute Card card) {
         CardOwner user = cardOwnerDao.getOne(1L);
+        Card cards = cardsDao.getOne(id);
         card.setCardOwner(user);
-        cardsDao.save(card);
+        cards.setCity(card.getCity());
+        cards.setCompany(card.getCompany());
+        cards.setCountry(card.getCountry());
+        cards.setFirstName(card.getFirstName());
+        cards.setLastName(card.getLastName());
+        cards.setPhone(card.getPhone());
+        cards.setState(card.getState());
+        cards.setTitle(card.getTitle());
+        cards.setWebsite(card.getWebsite());
+        cardsDao.save(cards);
         return "redirect:/card/view";
     }
 
