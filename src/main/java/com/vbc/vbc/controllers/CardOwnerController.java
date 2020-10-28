@@ -5,10 +5,7 @@ import com.vbc.vbc.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -73,5 +70,24 @@ public class CardOwnerController {
         model.addAttribute("owner", owner);
         return "cardOwner/show";
     }
+
+    @GetMapping("/owner/edit-owner")
+    public String editOwner(Model model, @PathVariable long id){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CardOwner cardOwner = cardOwnersDao.getOne(id);
+        model.addAttribute("user", user);
+        model.addAttribute("owner", cardOwner);
+        return "cardOwner/edit-owner";
+    }
+
+    @PostMapping("/owner/edit-owner")
+    public String editOwnerPage(@ModelAttribute CardOwner cardOwner, @RequestParam long id){
+        CardOwner owner = cardOwnersDao.getOne(id);
+        owner.setBio(cardOwner.getBio());
+        owner.setPhone(cardOwner.getPhone());
+        cardOwnersDao.save(owner);
+        return "redirect:/dashboard";
+    }
+
 
 }
