@@ -16,8 +16,7 @@
 
             <!--            <div class="profile mr-3" th:each="image :${user.getImages()}"><img th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" alt="..." width="196" class="rounded mb-2 img-thumbnail"></div>-->
 
-            <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-light btn-sm btn-block btn-submit">Edit
-                profile</a></div>
+            <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-light btn-sm btn-block btn-submit">Edit profile</a></div>
 
 
             <div class="media-body mb-5 text-white">
@@ -26,8 +25,8 @@
                 <h4>Phone Number</h4>
                 <p class="small mb-4 " style="font-size: larger;" th:text="${user.cardOwner.phone}"><i
                         class="fas fa-at mr-2"></i></p>
-                <form th:action="@{/barber/edit-barber-details}" th:method="get">
-                    <input type="hidden" th:name="editBarberDetailsButton" th:value="${user.cardOwner.id}">
+                <form th:action="@{/owners/edit-owner}" th:method="get">
+                    <input type="hidden" th:value="${user.cardOwner.id}">
                     <button class="btn btn-submit">Edit Bio<i class="fas fa-user-cog"></i></button>
                 </form>
             </div>
@@ -57,8 +56,34 @@
         </tr>
         </tbody>
     </table>
-
     <br>
+    <div>
+        <h1 class="card-title">Reviews </h1>
+
+        <div class="row row-cols-1 row-cols-md-3">
+
+            <div class="card border border-danger rounded" style=" width: 18rem;" th:each="review : ${owner.getCardOwner().getReviews()}">
+                <!--   PICTURE OF SERVICE GOES HERE     -->
+                <img class="card-image-top" src="..." alt="">
+                <div class="card-body">
+                    <h5 class="card-title">Author</h5>
+                    <p class="card-text" style="font-size: larger;" th:text="${review.author.firstName} + ' ' + ${review.author.lastName}"></p>
+                    <h5 class="card-title">Title</h5>
+                    <p class="card-text" style="font-size: larger;" th:text="${review.title}"></p>
+                    <h5 class="card-title">Content</h5>
+                    <p class="card-text" style="font-size: larger;" th:text="${review.content}"></p>
+                    <h5 class="card-title">Rating</h5>
+                    <fieldset class="rating" th:value="*{review.rating}">
+                        <input type="radio"  name="rating" value="5"/><label class="full"  title="Awesome - 5 stars"></label>
+                        <input type="radio"  name="rating" value="4"/><label class="full"  title="Pretty good - 4 stars"></label>
+                        <input type="radio" name="rating" value="3"/><label class="full"  title="Meh - 3 stars"></label>
+                        <input type="radio"  name="rating" value="2"/><label class="full"  title="Kinda bad - 2 stars"></label>
+                        <input type="radio"  name="rating" value="1"/><label class="full"  title="Sucks big time - 1 star"></label>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
     <hr>
 </div>
 </body>
