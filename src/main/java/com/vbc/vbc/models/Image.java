@@ -17,13 +17,19 @@ public class Image {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "card")
+    private Card card;
+
     public Image() {
     }
 
-    public Image(long id, String filestackUrl, User user) {
+    public Image(long id, String filestackUrl, User user, Card card) {
         this.id = id;
         this.filestackUrl = filestackUrl;
         this.user = user;
+        this.card = card;
+
     }
 
     public long getId() {
@@ -48,5 +54,13 @@ public class Image {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 }

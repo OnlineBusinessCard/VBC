@@ -1,6 +1,7 @@
 package com.vbc.vbc.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -45,11 +46,13 @@ public class Card {
     @JoinColumn(name = "cardOwner")
     private CardOwner cardOwner;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "card")
+    private List<Image> images;
+
     public Card() {
     }
 
-
-    public Card(long id, String title, String website, String phone, String firstName, String lastName, String company, String city, String state, String country, CardOwner cardOwner){
+    public Card(long id, String title, String website, String phone, String firstName, String lastName, String company, String city, String state, String country, CardOwner cardOwner, List<Image> images){
         this.id = id;
         this.title = title;
         this.website = website;
@@ -62,6 +65,7 @@ public class Card {
         this.state = state;
         this.country = country;
         this.cardOwner = cardOwner;
+        this.images = images;
     }
 
 
@@ -162,5 +166,11 @@ public class Card {
         this.cardOwner = cardOwner;
     }
 
+    public List<Image> getImages() {
+        return images;
+    }
 
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 }
