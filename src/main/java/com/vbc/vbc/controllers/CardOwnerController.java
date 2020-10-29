@@ -31,8 +31,12 @@ public class CardOwnerController {
         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = usersDao.getOne(sessionUser.getId());
         List<Lead> leads = leadsDao.findAll();
+        List<Review> reviews = reviewsDao.findAll();
+        List<Card> cards = cardsDao.findAll();
         model.addAttribute("user", user);
         model.addAttribute("leads", leads);
+        model.addAttribute("review", reviews);
+        model.addAttribute("cards",cards);
         return "cardOwner/profile";
     }
 
