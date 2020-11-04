@@ -26,16 +26,19 @@ public class User {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @Column(nullable = false, columnDefinition = "TINYINT")
-    private boolean isOwner;
+//    @Column(nullable = false, columnDefinition = "TINYINT")
+//    private boolean isOwner;
 
 //    @OneToOne
 //    private Card card;
 
-    @OneToOne
-    private CardOwner cardOwner;
+//    @OneToOne
+//    private CardOwner cardOwner;
 
-    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "author")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Card> cards;
+
+    @OneToMany(cascade = CascadeType.ALL ,mappedBy = "user")
     private List<Review> reviews;
 
     @OneToMany(cascade = CascadeType.ALL ,mappedBy = "user")
@@ -61,22 +64,23 @@ public class User {
         this.password = copy.password;
         this.firstName = copy.firstName;
         this.lastName = copy.lastName;
-        this.cardOwner = copy.cardOwner;
-        this.isOwner = copy.isOwner;
-//        this.card = copy.card;
+//        this.cardOwner = copy.cardOwner;
+//        this.isOwner = copy.isOwner;
+        this.cards = copy.cards;
     }
 
-    public User(long id, String username, String firstName, String lastName, String email, String password, boolean isOwner, CardOwner cardOwner, List<Review> reviews, List<Lead> leads) {
+    public User(long id, String username, String firstName, String lastName, String email, String password, List<Review> reviews, List<Lead> leads, List<Card> cards) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.isOwner = isOwner;
-        this.cardOwner = cardOwner;
+//        this.isOwner = isOwner;
+//        this.cardOwner = cardOwner;
         this.reviews = reviews;
         this.leads = leads;
+        this.cards = cards;
     }
 
 
@@ -136,20 +140,29 @@ public class User {
 //        this.card = card;
 //    }
 
-    public boolean isOwner() {
-        return isOwner;
+//    public boolean isOwner() {
+//        return isOwner;
+//    }
+//
+//    public void setOwner(boolean owner) {
+//        isOwner = owner;
+//    }
+
+//    public CardOwner getCardOwner() {
+//        return cardOwner;
+//    }
+//
+//    public void setCardOwner(CardOwner cardOwner) {
+//        this.cardOwner = cardOwner;
+//    }
+
+
+    public List<Card> getCards() {
+        return cards;
     }
 
-    public void setOwner(boolean owner) {
-        isOwner = owner;
-    }
-
-    public CardOwner getCardOwner() {
-        return cardOwner;
-    }
-
-    public void setCardOwner(CardOwner cardOwner) {
-        this.cardOwner = cardOwner;
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 
     public List<Review> getReviews() {

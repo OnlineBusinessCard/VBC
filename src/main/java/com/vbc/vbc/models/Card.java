@@ -43,8 +43,8 @@ public class Card {
     private String country;
 
     @ManyToOne
-    @JoinColumn(name = "cardOwner")
-    private CardOwner cardOwner;
+    @JoinColumn(name = "user")
+    private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "card")
     private List<Image> images;
@@ -52,7 +52,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(long id, String title, String website, String phone, String firstName, String lastName, String company, String city, String state, String country, CardOwner cardOwner, List<Image> images){
+    public Card(long id, String title, String website, String phone, String firstName, String lastName, String company, String city, String state, String country, List<Image> images, User user){
         this.id = id;
         this.title = title;
         this.website = website;
@@ -64,8 +64,9 @@ public class Card {
         this.city = city;
         this.state = state;
         this.country = country;
-        this.cardOwner = cardOwner;
+//        this.cardOwner = cardOwner;
         this.images = images;
+        this.user = user;
     }
 
 
@@ -157,14 +158,21 @@ public class Card {
         this.phone = phone;
     }
 
-
-    public CardOwner getCardOwner() {
-        return cardOwner;
+    public User getUser() {
+        return user;
     }
 
-    public void setCardOwner(CardOwner cardOwner) {
-        this.cardOwner = cardOwner;
+    public void setUser(User user) {
+        this.user = user;
     }
+
+    //    public CardOwner getCardOwner() {
+//        return cardOwner;
+//    }
+//
+//    public void setCardOwner(CardOwner cardOwner) {
+//        this.cardOwner = cardOwner;
+//    }
 
     public List<Image> getImages() {
         return images;

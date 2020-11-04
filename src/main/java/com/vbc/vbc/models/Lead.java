@@ -36,14 +36,14 @@ public class Lead {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "card_owner")
-    private CardOwner cardOwner;
+//    @ManyToOne
+//    @JoinColumn(name = "card_owner")
+//    private CardOwner cardOwner;
 
     public Lead() {
     }
 
-    public Lead(long id, LocalDateTime createDateTime, User user, String note, String phone, String firstName, String lastName, String email, CardOwner cardOwner){
+    public Lead(long id, LocalDateTime createDateTime, User user, String note, String phone, String firstName, String lastName, String email){
         this.id = id;
         this.user = user;
         this.firstName = firstName;
@@ -52,7 +52,7 @@ public class Lead {
         this.createDateTime = createDateTime;
         this.note = note;
         this.phone = phone;
-        this.cardOwner = cardOwner;
+//        this.cardOwner = cardOwner;
     }
 
     public long getId() {
@@ -119,11 +119,11 @@ public class Lead {
         this.email = email;
     }
 
-    public CardOwner getCardOwner() {
-        return cardOwner;
-    }
-
-    public void setCardOwner(CardOwner cardOwner) {
-        this.cardOwner = cardOwner;
-    }
+//    public CardOwner getCardOwner() {
+//        return cardOwner;
+//    }
+//
+//    public void setCardOwner(CardOwner cardOwner) {
+//        this.cardOwner = cardOwner;
+//    }
 }
