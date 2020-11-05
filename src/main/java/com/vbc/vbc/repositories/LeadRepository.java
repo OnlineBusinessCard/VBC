@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LeadRepository extends JpaRepository<Lead, Long> {
 
-    @Query("from Lead a where a.cardOwner.id = ?1")
+    @Query("from Lead a where a.user.id = ?1")
     List<Lead> findAllAppointmentsByCardOwner(long cardOwnerId);
 
     @Query("from Lead l where l.user.id = ?1")
