@@ -1,9 +1,7 @@
 package com.vbc.vbc.controllers;
 
 import com.vbc.vbc.models.Card;
-import com.vbc.vbc.models.CardOwner;
 import com.vbc.vbc.models.User;
-import com.vbc.vbc.repositories.CardOwnerRepository;
 import com.vbc.vbc.repositories.CardRepository;
 import com.vbc.vbc.repositories.ImageRepository;
 import com.vbc.vbc.repositories.UserRepository;
@@ -17,14 +15,12 @@ import java.util.List;
 @Controller
 public class CardController {
 
-    private final CardOwnerRepository cardOwnerDao;
     private final CardRepository cardsDao;
     private final UserRepository usersDao;
     private final ImageRepository imageDao;
 
 
-    public CardController(CardOwnerRepository cardOwnerDao, CardRepository cardsDao, UserRepository usersDao, ImageRepository imageDao) {
-        this.cardOwnerDao = cardOwnerDao;
+    public CardController(CardRepository cardsDao, UserRepository usersDao, ImageRepository imageDao) {
         this.cardsDao = cardsDao;
         this.usersDao = usersDao;
         this.imageDao = imageDao;
@@ -61,10 +57,8 @@ public class CardController {
     public String createCard(@ModelAttribute Card card){
         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = usersDao.getOne(sessionUser.getId());
-        CardOwner cardOwner = user.getCardOwner();
-        card.setCardOwner(user.getCardOwner());
+        card.setUser(user);
         cardsDao.save(card);
-        cardOwnerDao.save(cardOwner);
         return "redirect:/card/{id}";
     }
 
@@ -78,9 +72,9 @@ public class CardController {
     //EDIT CARD
     @PostMapping("/card/{id}/edit")
     public String editCard(@PathVariable long id, @ModelAttribute Card card) {
-        CardOwner user = cardOwnerDao.getOne(1L);
+        User user = usersDao.getOne(1L);
         Card cards = cardsDao.getOne(id);
-        card.setCardOwner(user);
+        card.setUser(user);
         cards.setCity(card.getCity());
         cards.setCompany(card.getCompany());
         cards.setCountry(card.getCountry());
