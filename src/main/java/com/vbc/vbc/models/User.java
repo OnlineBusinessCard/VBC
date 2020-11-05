@@ -44,6 +44,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL ,mappedBy = "user")
     private List<Lead> leads;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Image> images;
+
     public User() {
     }
 
@@ -67,9 +70,10 @@ public class User {
 //        this.cardOwner = copy.cardOwner;
 //        this.isOwner = copy.isOwner;
         this.cards = copy.cards;
+        this.images = copy.images;
     }
 
-    public User(long id, String username, String firstName, String lastName, String email, String password, List<Review> reviews, List<Lead> leads, List<Card> cards) {
+    public User(long id, String username, String firstName, String lastName, String email, String password, List<Review> reviews, List<Lead> leads, List<Card> cards, List<Image> images) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -81,6 +85,7 @@ public class User {
         this.reviews = reviews;
         this.leads = leads;
         this.cards = cards;
+        this.images = images;
     }
 
 
@@ -179,5 +184,13 @@ public class User {
 
     public void setLeads(List<Lead> leads) {
         this.leads = leads;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }
