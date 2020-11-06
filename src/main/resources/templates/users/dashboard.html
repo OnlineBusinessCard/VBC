@@ -8,26 +8,100 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 <br>
 <div class="container">
-    <h1 class="text-center">Dashboard</h1>
+    <div class="d-flex d-inline">
+        <h1 class="text-center" th:text="${'Welcome ' + user.firstName}">!</h1>
+    </div>
+
+    <div class="px-4 pt-0 pb-4 bg-dark" th:object="${user.firstName}">
+        <div class="media align-items-end profile-header">
+
+            <!--            <div class="profile mr-3" th:each="image :${user.getImages()}"><img th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" alt="..." width="196" class="rounded mb-2 img-thumbnail"></div>-->
+
+            <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-light btn-sm btn-block btn-submit">Edit profile</a></div>
+
+
+            <div class="media-body mb-5 text-white">
+                <h4 class="mt-4">Bio</h4>
+                <p class="mt-0 mb-4" th:text="${user.cardOwner.bio}"></p>
+                <h4>Phone Number</h4>
+                <p class="small mb-4 " style="font-size: larger;" th:text="${user.cardOwner.phone}"><i
+                        class="fas fa-at mr-2"></i></p>
+                <form th:action="@{/owners/edit-owner}" th:method="get">
+                    <input type="hidden" th:value="${user.cardOwner.id}">
+                    <button class="btn btn-submit">Edit Bio<i class="fas fa-user-cog"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
     <br>
-    <div class="row py-5 px-4">
-        <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
-            <div class="bg-white shadow rounded overflow-hidden" style="border: #8D2827 solid 1px">
-                <div class="px-4 pt-0 pb-4 bg-dark" th:object="${user}">
-                    <div class="media align-items-end profile-header">
-                        <br>
-                        <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-submit btn-sm btn-block">Edit profile</a></div>
-                        <div><a th:href="@{/profile/delete/{id}(id=${user.id})}" class="btn btn-submit btn-sm btn-block">Delete profile</a></div>
-                        <div class="media-body mb-5 text-white">
-                            <h4 class="mt-0 mb-1"><span th:text="*{firstName}"></span> <span th:text="*{lastName}"></span></h4>
-                            <p class="small mb-4" style="font-size: larger" th:text="*{username}"><i class="fas fa-at mr-2"></i></p>
-                            <p class="small mb-4" style="font-size: larger;" th:text="*{email}"><i class="far fa-envelope mr-2"></i>></p>
-                        </div>
-                    </div>
+    <hr>
+    <div class="card">
+        <div class="card-header">My Card</div>
+        <div class="card-body">
+            <p class="card-text" th:text="${card.firstName}"></p>
+            <p class="card-text" th:text="${card.lastName}"></p>
+            <p class="card-text" th:text="${card.phone}"></p>
+            <p class="card-text" th:text="${card.email}"></p>
+            <p class="card-text" th:text="${card.title}"></p>
+            <p class="card-text" th:text="${card.company}"></p>
+            <p class="card-text" th:text="${card.website}"></p>
+            <p class="card-text" th:text="${card.city}"></p>
+            <p class="card-text" th:text="${card.state}"></p>
+            <p class="card-text" th:text="${card.country}"></p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h1 class="card-title">New Leads</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Created</th>
+            <th>Name</th>
+            <th>Contact Information</th>
+            <th>Details</th>
+            <th>View Lead</th>
+        </tr>
+        </thead>
+        <tbody th:each="leads : ${user.getLeads()}">
+        <tr>
+            <td><span class="date" th:text="${leads.createDateTime}"></span></td>
+            <td th:text="${leads.user.firstName} +' ' + ${leads.user.lastName}"></td>
+            <td th:text="${leads.phone}"></td>
+            <td th:text="${leads.note}"></td>
+            <td><a class="btn btn-submit" th:href="@{'/leads/' + ${leads.id}}">View Lead</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <div>
+        <h1 class="card-title">Reviews </h1>
+
+        <div class="row row-cols-1 row-cols-md-3">
+
+            <div class="card border border-danger rounded" style=" width: 18rem;" th:each="review : ${owner.getCardOwner().getReviews()}">
+                <!--   PICTURE OF SERVICE GOES HERE     -->
+                <img class="card-image-top" src="..." alt="">
+                <div class="card-body">
+                    <h5 class="card-title">Author</h5>
+                    <p class="card-text" style="font-size: larger;" th:text="${review.author.firstName} + ' ' + ${review.author.lastName}"></p>
+                    <h5 class="card-title">Title</h5>
+                    <p class="card-text" style="font-size: larger;" th:text="${review.title}"></p>
+                    <h5 class="card-title">Content</h5>
+                    <p class="card-text" style="font-size: larger;" th:text="${review.content}"></p>
+                    <h5 class="card-title">Rating</h5>
+                    <fieldset class="rating" th:value="*{review.rating}">
+                        <input type="radio"  name="rating" value="5"/><label class="full"  title="Awesome - 5 stars"></label>
+                        <input type="radio"  name="rating" value="4"/><label class="full"  title="Pretty good - 4 stars"></label>
+                        <input type="radio" name="rating" value="3"/><label class="full"  title="Meh - 3 stars"></label>
+                        <input type="radio"  name="rating" value="2"/><label class="full"  title="Kinda bad - 2 stars"></label>
+                        <input type="radio"  name="rating" value="1"/><label class="full"  title="Sucks big time - 1 star"></label>
+                    </fieldset>
                 </div>
             </div>
         </div>
     </div>
+    <hr>
 </div>
 </body>
 </html>
