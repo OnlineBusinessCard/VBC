@@ -1,9 +1,10 @@
 package com.vbc.vbc.controllers;
 
-import com.vbc.vbc.models.Image;
+import com.vbc.vbc.models.Card;
+import com.vbc.vbc.models.Lead;
+import com.vbc.vbc.models.Review;
 import com.vbc.vbc.models.User;
-import com.vbc.vbc.repositories.ImageRepository;
-import com.vbc.vbc.repositories.UserRepository;
+import com.vbc.vbc.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,20 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private UserRepository userDao;
-    private PasswordEncoder passwordEncoder;
-    private ImageRepository imagesDao;
+    private final UserRepository userDao;
+    private final PasswordEncoder passwordEncoder;
+    private final LeadRepository leadsDao;
+    private final ReviewRepository reviewsDao;
+    private final CardRepository cardsDao;
+    private final ImageRepository imagesDao;
 
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, ImageRepository imagesDao) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, LeadRepository leadsDao, ReviewRepository reviewsDao, CardRepository cardsDao, ImageRepository imagesDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
+        this.leadsDao = leadsDao;
+        this.reviewsDao = reviewsDao;
+        this.cardsDao = cardsDao;
         this.imagesDao = imagesDao;
     }
 
@@ -45,8 +52,14 @@ public class UserController {
         User sessionUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getOne(sessionUser.getId());
 //        List<Image> myImage = imagesDao.findAll();
+        List<Lead> lead = leadsDao.findAll();
+        List<Card> cards = cardsDao.findAll();
+        List<Review> review = reviewsDao.findAll();
 //        model.addAttribute("images", myImage);
         model.addAttribute("user", user);
+        model.addAttribute("leads", lead);
+        model.addAttribute("review", review);
+        model.addAttribute("card", cards);
         return "users/dashboard";
     }
 
@@ -54,7 +67,11 @@ public class UserController {
     @GetMapping("/profile/{id}")
     public String userProfile(@PathVariable long id, Model model){
         User user = userDao.getOne(id);
+        List<Review> review = reviewsDao.findAll();
+        List<Card> cards = cardsDao.findAll();
         model.addAttribute("user", user);
+        model.addAttribute("review", review);
+        model.addAttribute("card", cards);
         return "users/profile";
     }
 
