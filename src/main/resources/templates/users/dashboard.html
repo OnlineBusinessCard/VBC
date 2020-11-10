@@ -12,36 +12,37 @@
         <h1 class="text-center" th:text="${'Welcome ' + user.firstName}">!</h1>
     </div>
 
-    <div class="px-4 pt-0 pb-4 bg-dark" th:object="${user.firstName}">
+    <div class="px-4 pt-0 pb-4 bg-dark" th:object="${user}">
         <div class="media align-items-end profile-header">
-
-            <!--            <div class="profile mr-3" th:each="image :${user.getImages()}"><img th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" alt="..." width="196" class="rounded mb-2 img-thumbnail"></div>-->
-
-            <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-light btn-sm btn-block btn-submit">Edit profile</a></div>
-
-
-            <div class="media-body mb-5 text-white">
-                <h4 class="mt-4">Bio</h4>
-                <p class="mt-0 mb-4" th:text="${user.cardOwner.bio}"></p>
-                <h4>Phone Number</h4>
-                <p class="small mb-4 " style="font-size: larger;" th:text="${user.cardOwner.phone}"><i
-                        class="fas fa-at mr-2"></i></p>
-                <form th:action="@{/owners/edit-owner}" th:method="get">
-                    <input type="hidden" th:value="${user.cardOwner.id}">
-                    <button class="btn btn-submit">Edit Bio<i class="fas fa-user-cog"></i></button>
-                </form>
+            <div class="media align-items-end profile-header">
+                <!--					<div class="card-image-top" th:each="image :${user.getImages()}">-->
+                <!--						<img th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" class="hidden"-->
+                <!--							 style="height: 200px"></img>-->
+                <!--					</div>-->
+                <div class="profile mr-3 mt-2" th:each="image :${user.getImages()}"><img
+                        th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" class="hidden"
+                        style="height: 200px"></div><br>
+                <div><a th:href="@{/profile/edit/{id}(id=${user.id})}" class="btn btn-submit btn-sm btn-block">Edit
+                    profile</a></div>
+                <div class="media-body mb-5 text-white">
+                    <h4 class="mt-0 mb-1"><span th:text="*{firstName}"></span> <span th:text="*{lastName}"></span>
+                    </h4>
+                    <p class="small mb-4" style="font-size: larger" th:text="*{username}"><i
+                            class="fas fa-at mr-2"></i></p>
+                    <p class="small mb-4" style="font-size: larger;" th:text="*{email}"><i
+                            class="far fa-envelope mr-2"></i>></p>
+                </div>
             </div>
         </div>
     </div>
     <br>
     <hr>
-    <div class="card">
+    <div class="card" th:each="card : ${user.getCards()}">
         <div class="card-header">My Card</div>
         <div class="card-body">
             <p class="card-text" th:text="${card.firstName}"></p>
             <p class="card-text" th:text="${card.lastName}"></p>
             <p class="card-text" th:text="${card.phone}"></p>
-            <p class="card-text" th:text="${card.email}"></p>
             <p class="card-text" th:text="${card.title}"></p>
             <p class="card-text" th:text="${card.company}"></p>
             <p class="card-text" th:text="${card.website}"></p>
@@ -49,6 +50,7 @@
             <p class="card-text" th:text="${card.state}"></p>
             <p class="card-text" th:text="${card.country}"></p>
         </div>
+
     </div>
     <br>
     <br>
@@ -79,7 +81,7 @@
 
         <div class="row row-cols-1 row-cols-md-3">
 
-            <div class="card border border-danger rounded" style=" width: 18rem;" th:each="review : ${owner.getCardOwner().getReviews()}">
+            <div class="card border border-danger rounded" style=" width: 18rem;" th:each="review : ${user.getReviews()}">
                 <!--   PICTURE OF SERVICE GOES HERE     -->
                 <img class="card-image-top" src="..." alt="">
                 <div class="card-body">
