@@ -57,14 +57,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/profile/edit/{id}",
                         "/leads",
                         "/leads/{id}",
-                        "/leads/create",
-                        "/cardOwner/profile",
-                        "/cardOwner/bio",
                         "/reviews",
                         "/reviews/{id}",
-                        "/reviews/create",
-                        "/reviews/{id}/edit",
-                        "/reviews/{id}/delete"
+                        "/settings/delete-profile",
+                        "/card",
+                        "/card/create",
+                        "/card/delete",
+                        "/card/edit"
                 )
                 .authenticated()
         ;
