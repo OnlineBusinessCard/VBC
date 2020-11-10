@@ -22,22 +22,34 @@
 
         </div>
         <div class="media-body mb-5 text-white">
-            <h4>Bio: </h4>
-            <p class="mt-0 mb-0" style="font-size: larger;" th:text="${user.bio}"></p>
-            <h4>Phone Number: </h4>
-            <p class="small mb-4" style="font-size: larger;" th:text="${user.phone}"><i class="fas fa-at mr-2"></i></p>
+            <h4>Email: </h4>
+            <p class="mt-0 mb-0" style="font-size: larger;" th:text="${user.email}"></p>
             <a th:href="@{/leads/create/{id}(id=${user.id})}">
                 <button class="btn btn-secondary">Request appointment</button>
             </a>
             <a th:href="@{/reviews/create/{id}(id=${user.id})}">
-                <button class="btn btn-secondary">Review this barber</button>
+                <button class="btn btn-secondary">Create Review</button>
             </a>
         </div>
     </div>
 </div>
 <br>
 <hr>
+<div class="card" th:each="card : ${user.getCards()}">
+    <div class="card-header">My Card</div>
+    <div class="card-body">
+        <p class="card-text" th:text="${card.firstName}"></p>
+        <p class="card-text" th:text="${card.lastName}"></p>
+        <p class="card-text" th:text="${card.phone}"></p>
+        <p class="card-text" th:text="${card.title}"></p>
+        <p class="card-text" th:text="${card.company}"></p>
+        <p class="card-text" th:text="${card.website}"></p>
+        <p class="card-text" th:text="${card.city}"></p>
+        <p class="card-text" th:text="${card.state}"></p>
+        <p class="card-text" th:text="${card.country}"></p>
+    </div>
 
+</div>
 <br>
 <!--<div id='map' style='width: 100%; height: 500px;'></div>-->
 <br>
