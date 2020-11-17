@@ -63,7 +63,6 @@ public class UserController {
         return "users/dashboard";
     }
 
-
     @GetMapping("/profile/{id}")
     public String userProfile(@PathVariable long id, Model model){
         User user = userDao.getOne(id);
@@ -109,6 +108,13 @@ public class UserController {
         User deleteUser = userDao.getOne(user.getId());
         userDao.delete(deleteUser);
         return "redirect:/";
+    }
+
+    @GetMapping("/users/all")
+    public String viewAll(Model model){
+        List<User> users = userDao.findAll();
+        model.addAttribute("users", users);
+        return "users/index";
     }
 
 }
