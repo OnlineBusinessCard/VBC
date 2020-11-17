@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<br>
+<div class="main">
+    <div class="container">
+
+        <h2 class="text-center">Viewing All Users</h2>
+        <hr>
+
+        <div th:each="user : ${users}">
+            <h2 th:text="${user.firstName}"></h2>
+            <p th:text="${user.lastName}"></p>
+            <p th:text="${user.email}"></p>
+<!--            <div th:each="image :${user.getImages()}">-->
+<!--                <img th:src="${'https://cdn.filestackcontent.com/' + image.getFilestackUrl()}" class="hidden" style="height: 200px"></img>-->
+<!--            </div>-->
+            <a th:href="@{'/profile/' + ${user.id}}">View User</a>
+        </div>
+
+        <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/file.js}" />
+
+    </div>
+</div>
+</body>
+</html>
