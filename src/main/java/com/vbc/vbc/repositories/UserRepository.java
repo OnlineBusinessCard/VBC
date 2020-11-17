@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //    @Query("from User u where u.isOwner = true")
 //    List<User> findAllCardOwners();
 
-    User findByUser(User user);
+//    User findByUser(User user);
 
 }
