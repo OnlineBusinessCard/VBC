@@ -117,4 +117,11 @@ public class UserController {
         return "users/index";
     }
 
+    @RequestMapping
+    public String searchUser(@ModelAttribute("User") User user , Model model){
+        List<User> users = userDao.findByFirstNameAndLastName(user.getFirstName(), user.getLastName());
+        model.addAttribute("users", users);
+        return "users/search";
+    }
+
 }
