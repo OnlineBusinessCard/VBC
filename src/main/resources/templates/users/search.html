@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="partials/head :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<br>
+<div class="container">
+    <h2 class="text-center">Search Results</h2>
+    <br>
+    <hr>
+    <br>
+    <div th:each="user: ${users}">
+        <h3 th:text="${user.firstName}"></h3>
+        <form th:action="@{/users/search}" method="get">
+            <button type="submit">Search User</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
