@@ -19,6 +19,11 @@
     <div class="collapse navbar-collapse">
         <a class="navbar-brand nav-link" th:href="@{/}">VBC</a>
 
+        <form sec:authorize="!isAuthenticated()" class="form-inline" th:action="@{/users/search}" th:method="GET">
+            <input type="search" th:name="user" class="form-control" placeholder="Search">
+            <button class="btn" type="submit" value="Search">Search</button>
+        </form>
+
         <ul class="nav justify-content-center navbar-nav navbar-inner ml-auto">
 
             <li class="nav-item "><a class="nav-link" th:href="@{/}">Home</a></li>
